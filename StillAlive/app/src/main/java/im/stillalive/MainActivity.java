@@ -1,15 +1,20 @@
 package im.stillalive;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int PICK_CONTACT_REQUEST_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                pickContact();
             }
         });
     }
@@ -48,5 +52,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void pickContact() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI);
+        intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_CONTACT_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == -1 && requestCode == PICK_CONTACT_REQUEST_CODE) {
+            Uri uri = data.getData();
+
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            cursor.moveToFirst();
+
+            String contactName = cursor.getString(cursor.
+                    getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            String contactNumber = cursor.getString(cursor.
+                    getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+        }
     }
 }
