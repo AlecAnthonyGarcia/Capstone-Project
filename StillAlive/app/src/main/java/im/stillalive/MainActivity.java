@@ -73,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
                     getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
             String contactNumber = cursor.getString(cursor.
                     getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            String contactPhoto = cursor.getString(cursor.
+                    getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI));
+
+            Intent intent = new Intent(MainActivity.this, ReminderComposerActivity.class);
+            intent.putExtra("contactName", contactName);
+            intent.putExtra("contactNumber", contactNumber);
+            intent.putExtra("contactPhoto", contactPhoto);
+            startActivity(intent);
         }
     }
 }

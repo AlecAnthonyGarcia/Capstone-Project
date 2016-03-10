@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="@dimen/reminder_days_selector_padding"
+    android:weightSum="7.0">
+
+    <CheckBox
+        android:id="@+id/message_delivery_day_sunday_button"
+        style="@style/ReminderDeliveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_delivery_day_sunday" />
+
+    <CheckBox
+        android:id="@+id/message_delivery_day_monday_button"
+        style="@style/ReminderDeliveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_delivery_day_monday" />
+
+    <CheckBox
+        android:id="@+id/message_delivery_day_tuesday_button"
+        style="@style/ReminderDeliveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_delivery_day_tuesday" />
+
+    <CheckBox
+        android:id="@+id/message_delivery_day_wednesday_button"
+        style="@style/ReminderDeliveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_delivery_day_wednesday" />
+
+    <CheckBox
+        android:id="@+id/message_delivery_day_thursday_button"
+        style="@style/ReminderDeliveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_delivery_day_thursday" />
+
+    <CheckBox
+        android:id="@+id/message_delivery_day_friday_button"
+        style="@style/ReminderDeliveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_delivery_day_friday" />
+
+    <CheckBox
+        android:id="@+id/message_delivery_day_saturday_button"
+        style="@style/ReminderDeliveryDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminder_delivery_day_saturday" />
+
+</LinearLayout>

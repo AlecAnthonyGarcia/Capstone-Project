@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ReminderComposerActivity"
+    tools:showIn="@layout/activity_reminder_composer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:drawableLeft="@drawable/ic_date_range_black_24dp_wrapped"
+            android:drawablePadding="32dp"
+            android:text="@string/reminder_date_title"
+            android:textSize="25sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="2.0">
+
+            <include
+                layout="@layout/content_reminder_days_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5" />
+
+            <Button
+                android:id="@+id/reminder_time_picker_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@null"
+                tools:text="12:00 PM"
+                android:textColor="@color/colorSecondaryText" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:drawableLeft="@drawable/ic_textsms_black_24dp_wrapped"
+            android:drawablePadding="32dp"
+            android:text="@string/reminder_message_title"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/reminder_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
