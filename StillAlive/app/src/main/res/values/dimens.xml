@@ -6,4 +6,5 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="reminder_days_selector_padding">10dp</dimen>
+    <dimen name="reminder_contact_photo_size">64dp</dimen>
 </resources>

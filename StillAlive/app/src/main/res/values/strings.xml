@@ -3,6 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="reminder_date_title">Reminder Date</string>
     <string name="reminder_message_title">Reminder Message</string>
+    <string name="reminder_delete_button">DELETE</string>
     <string name="reminder_delivery_day_sunday">S</string>
     <string name="reminder_delivery_day_monday">M</string>
     <string name="reminder_delivery_day_tuesday">T</string>
@@ -12,4 +13,6 @@
     <string name="reminder_delivery_day_saturday">S</string>
     <string name="error_invalid_reminder_day">Select at least one day to send your message to</string>
     <string name="error_invalid_reminder_message">Enter a message to send to</string>
+    <string name="empty_state_title">Are you still alive?</string>
+    <string name="empty_state_message">Create reminders so the people who care about you will know you're not dead.</string>
 </resources>

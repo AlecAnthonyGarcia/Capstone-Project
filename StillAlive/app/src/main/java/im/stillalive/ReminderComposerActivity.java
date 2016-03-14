@@ -20,14 +20,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
-import java.util.Locale;
+
+import io.realm.Realm;
 
 public class ReminderComposerActivity extends AppCompatActivity {
 
+    private Realm realm;
     private Intent intentExtras;
     private FloatingActionButton saveReminderFAB;
     private static Button reminderTimePickerButton;
+    private Button reminderDeleteButton;
     private EditText reminderMessage;
     private CheckBox reminderDeliveryDaySundayButton;
     private CheckBox reminderDeliveryDayMondayButton;
@@ -37,37 +43,27 @@ public class ReminderComposerActivity extends AppCompatActivity {
     private CheckBox reminderDeliveryDayFridayButton;
     private CheckBox reminderDeliveryDaySaturdayButton;
 
-    private static String reminderDeliveryTime;
+    private String contactName;
+    private String contactNumber;
+    private String contactPhoto;
+
+    private boolean isEditing;
+    private Reminder reminder;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_composer);
 
+        realm = Realm.getDefaultInstance();
         intentExtras = getIntent();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getIntent().getStringExtra("contactName"));
-        setSupportActionBar(toolbar);
-
-        ImageView contactPhoto = (ImageView) findViewById(R.id.contact_photo);
-        String contactPhotoUri = intentExtras.getStringExtra("contactPhoto");
-        if (contactPhotoUri != null) {
-            contactPhoto.setImageURI(Uri.parse(contactPhotoUri));
-        }
-
+        ImageView contactPhotoIv = (ImageView) findViewById(R.id.contact_photo);
         saveReminderFAB = (FloatingActionButton) findViewById(R.id.save_reminder_fab);
-        saveReminderFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isMessageCompositionValid()) {
-                    // TODO: save reminder to Realm
-                }
-            }
-        });
-
         reminderMessage = (EditText) findViewById(R.id.reminder_message);
-
+        reminderTimePickerButton = (Button) findViewById(R.id.reminder_time_picker_button);
+        reminderDeleteButton = (Button) findViewById(R.id.reminder_delete_button);
         reminderDeliveryDaySundayButton = (CheckBox) findViewById(R.id.message_delivery_day_sunday_button);
         reminderDeliveryDayMondayButton = (CheckBox) findViewById(R.id.message_delivery_day_monday_button);
         reminderDeliveryDayTuesdayButton = (CheckBox) findViewById(R.id.message_delivery_day_tuesday_button);
@@ -91,11 +87,97 @@ public class ReminderComposerActivity extends AppCompatActivity {
         reminderDeliveryDaySaturdayButton
                 .setOnCheckedChangeListener(onReminderDeliveryDayCheckChanged);
 
-        Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
-        reminderTimePickerButton = (Button) findViewById(R.id.reminder_time_picker_button);
-        reminderTimePickerButton.setText(Util.getFormattedTime(hour, minute));
+        if(intentExtras.hasExtra("reminderId")) {
+            isEditing = true;
+            reminder = realm.where(Reminder.class).equalTo("id", intentExtras.getIntExtra("reminderId", -1)).findFirst();
+            if(reminder != null) {
+                reminderDeleteButton.setVisibility(View.VISIBLE);
+                reminderDeleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        realm.beginTransaction();
+                        reminder.removeFromRealm();
+                        realm.commitTransaction();
+                        finish();
+                    }
+                });
+                contactName = reminder.getContactName();
+                contactNumber = reminder.getContactNumber();
+                contactPhoto = reminder.getContactPhoto();
+                reminderMessage.setText(reminder.getText());
+                reminderTimePickerButton.setText(reminder.getDeliveryTime());
+                JSONObject deliveryDays;
+                try {
+                    deliveryDays = new JSONObject(reminder.getDeliveryDays());
+                    if (!deliveryDays.getBoolean("Sunday")) {
+                        reminderDeliveryDaySundayButton.setChecked(false);
+                    }
+                    if (!deliveryDays.getBoolean("Monday")) {
+                        reminderDeliveryDayMondayButton.setChecked(false);
+                    }
+                    if (!deliveryDays.getBoolean("Tuesday")) {
+                        reminderDeliveryDayTuesdayButton.setChecked(false);
+                    }
+                    if (!deliveryDays.getBoolean("Wednesday")) {
+                        reminderDeliveryDayWednesdayButton.setChecked(false);
+                    }
+                    if (!deliveryDays.getBoolean("Thursday")) {
+                        reminderDeliveryDayThursdayButton.setChecked(false);
+                    }
+                    if (!deliveryDays.getBoolean("Friday")) {
+                        reminderDeliveryDayFridayButton.setChecked(false);
+                    }
+                    if (!deliveryDays.getBoolean("Saturday")) {
+                        reminderDeliveryDaySaturdayButton.setChecked(false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            contactName = intentExtras.getStringExtra("contactName");
+            contactNumber = intentExtras.getStringExtra("contactNumber");
+            contactPhoto = intentExtras.getStringExtra("contactPhoto");
+            Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY), minute = c.get(Calendar.MINUTE);
+            reminderTimePickerButton.setText(Util.getFormattedTime(hour, minute));
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(contactName);
+        setSupportActionBar(toolbar);
+
+        if (contactPhoto != null) {
+            contactPhotoIv.setImageURI(Uri.parse(contactPhoto));
+        }
+
+        saveReminderFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isMessageCompositionValid()) {
+                    realm.beginTransaction();
+                    if(!isEditing) {
+                        reminder = new Reminder();
+                        Number lastIndex = realm.where(Reminder.class).findAll().max("id");
+                        if(lastIndex == null) {
+                            lastIndex = 0;
+                        }
+                        reminder.setId(lastIndex.intValue() + 1);
+                        reminder.setContactName(contactName);
+                        reminder.setContactNumber(contactNumber);
+                        reminder.setContactPhoto(contactPhoto);
+                    }
+                    reminder.setText(reminderMessage.getText().toString());
+                    reminder.setDeliveryTime(reminderTimePickerButton.getText().toString());
+                    reminder.setDeliveryDays(getReminderDeliveryDays());
+                    realm.copyToRealmOrUpdate(reminder);
+                    realm.commitTransaction();
+                    // TODO: schedule device alarm based on reminder date
+                    finish();
+                }
+            }
+        });
+
         reminderTimePickerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -136,15 +218,12 @@ public class ReminderComposerActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            reminderDeliveryTime = String.format(Locale.getDefault(),
-                    "%1d:%02d", hourOfDay, minute);
             reminderTimePickerButton.setText(Util.getFormattedTime(hourOfDay, minute));
         }
     }
 
     public boolean isMessageCompositionValid() {
         String messageTextStr = reminderMessage.getText().toString();
-        String contactName = intentExtras.getStringExtra("contactName");
         if (!(reminderDeliveryDaySundayButton.isChecked()
                 || reminderDeliveryDayMondayButton.isChecked()
                 || reminderDeliveryDayTuesdayButton.isChecked()
@@ -162,6 +241,22 @@ public class ReminderComposerActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+    
+    private String getReminderDeliveryDays() {
+        JSONObject reminderDeliveryDays = new JSONObject();
+        try {
+            reminderDeliveryDays.put("Sunday", reminderDeliveryDaySundayButton.isChecked());
+            reminderDeliveryDays.put("Monday", reminderDeliveryDayMondayButton.isChecked());
+            reminderDeliveryDays.put("Tuesday", reminderDeliveryDayTuesdayButton.isChecked());
+            reminderDeliveryDays.put("Wednesday", reminderDeliveryDayWednesdayButton.isChecked());
+            reminderDeliveryDays.put("Thursday", reminderDeliveryDayThursdayButton.isChecked());
+            reminderDeliveryDays.put("Friday", reminderDeliveryDayFridayButton.isChecked());
+            reminderDeliveryDays.put("Saturday", reminderDeliveryDaySaturdayButton.isChecked());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return reminderDeliveryDays.toString();
     }
 
 }

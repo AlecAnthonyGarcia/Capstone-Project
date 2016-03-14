@@ -41,11 +41,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="@null"
-                tools:text="12:00 PM"
-                android:textColor="@color/colorSecondaryText" />
+                android:background="?attr/selectableItemBackground"
+                android:textColor="@color/colorSecondaryText"
+                tools:text="12:00 PM" />
         </LinearLayout>
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +59,19 @@
             android:id="@+id/reminder_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:layout_margin="@dimen/text_margin" />
+
+        <Button
+            android:id="@+id/reminder_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/reminder_delete_button"
+            android:layout_marginRight="@dimen/text_margin"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone" />
 
     </LinearLayout>
 
