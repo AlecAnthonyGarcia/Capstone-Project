@@ -3,6 +3,7 @@
     package="im.stillalive">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name=".StillAliveApplication"
@@ -24,6 +25,11 @@
         <activity
             android:name=".ReminderComposerActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".MessageComposerActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <receiver android:name="im.stillalive.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

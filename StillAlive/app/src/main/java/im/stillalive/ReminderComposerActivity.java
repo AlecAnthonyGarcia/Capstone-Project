@@ -33,6 +33,7 @@ public class ReminderComposerActivity extends AppCompatActivity {
     private Intent intentExtras;
     private FloatingActionButton saveReminderFAB;
     private static Button reminderTimePickerButton;
+    public static String reminderDeliveryTime;
     private Button reminderDeleteButton;
     private EditText reminderMessage;
     private CheckBox reminderDeliveryDaySundayButton;
@@ -87,10 +88,10 @@ public class ReminderComposerActivity extends AppCompatActivity {
         reminderDeliveryDaySaturdayButton
                 .setOnCheckedChangeListener(onReminderDeliveryDayCheckChanged);
 
-        if(intentExtras.hasExtra("reminderId")) {
+        if (intentExtras.hasExtra("reminderId")) {
             isEditing = true;
             reminder = realm.where(Reminder.class).equalTo("id", intentExtras.getIntExtra("reminderId", -1)).findFirst();
-            if(reminder != null) {
+            if (reminder != null) {
                 reminderDeleteButton.setVisibility(View.VISIBLE);
                 reminderDeleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -105,7 +106,8 @@ public class ReminderComposerActivity extends AppCompatActivity {
                 contactNumber = reminder.getContactNumber();
                 contactPhoto = reminder.getContactPhoto();
                 reminderMessage.setText(reminder.getText());
-                reminderTimePickerButton.setText(reminder.getDeliveryTime());
+                reminderDeliveryTime = reminder.getDeliveryTime();
+                reminderTimePickerButton.setText(Util.getHumanFormattedTime(reminderDeliveryTime));
                 JSONObject deliveryDays;
                 try {
                     deliveryDays = new JSONObject(reminder.getDeliveryDays());
@@ -138,9 +140,6 @@ public class ReminderComposerActivity extends AppCompatActivity {
             contactName = intentExtras.getStringExtra("contactName");
             contactNumber = intentExtras.getStringExtra("contactNumber");
             contactPhoto = intentExtras.getStringExtra("contactPhoto");
-            Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY), minute = c.get(Calendar.MINUTE);
-            reminderTimePickerButton.setText(Util.getFormattedTime(hour, minute));
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -156,10 +155,10 @@ public class ReminderComposerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isMessageCompositionValid()) {
                     realm.beginTransaction();
-                    if(!isEditing) {
+                    if (!isEditing) {
                         reminder = new Reminder();
                         Number lastIndex = realm.where(Reminder.class).findAll().max("id");
-                        if(lastIndex == null) {
+                        if (lastIndex == null) {
                             lastIndex = 0;
                         }
                         reminder.setId(lastIndex.intValue() + 1);
@@ -168,11 +167,15 @@ public class ReminderComposerActivity extends AppCompatActivity {
                         reminder.setContactPhoto(contactPhoto);
                     }
                     reminder.setText(reminderMessage.getText().toString());
-                    reminder.setDeliveryTime(reminderTimePickerButton.getText().toString());
+                    reminder.setDeliveryTime(reminderDeliveryTime);
                     reminder.setDeliveryDays(getReminderDeliveryDays());
                     realm.copyToRealmOrUpdate(reminder);
                     realm.commitTransaction();
-                    // TODO: schedule device alarm based on reminder date
+
+                    String deliveryTime[] = reminder.getDeliveryTime().split(":");
+                    int hour = Integer.parseInt(deliveryTime[0]);
+                    int minute = Integer.parseInt(deliveryTime[1]);
+                    Util.setAlarm(ReminderComposerActivity.this, hour, minute);
                     finish();
                 }
             }
@@ -218,7 +221,8 @@ public class ReminderComposerActivity extends AppCompatActivity {
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            reminderTimePickerButton.setText(Util.getFormattedTime(hourOfDay, minute));
+            reminderDeliveryTime = Util.getFormattedTime(hourOfDay, minute);
+            reminderTimePickerButton.setText(Util.getHumanFormattedTime(reminderDeliveryTime));
         }
     }
 
@@ -235,6 +239,11 @@ public class ReminderComposerActivity extends AppCompatActivity {
                     + " " + contactName, Snackbar.LENGTH_LONG).show();
             return false;
         }
+        if (reminderDeliveryTime == null) {
+            Snackbar.make(saveReminderFAB, getString(R.string.error_invalid_reminder_time)
+                    + " " + contactName, Snackbar.LENGTH_LONG).show();
+            return false;
+        }
         if (!(messageTextStr.length() > 0)) {
             Snackbar.make(saveReminderFAB, getString(R.string.error_invalid_reminder_message)
                     + " " + contactName, Snackbar.LENGTH_LONG).show();
@@ -242,7 +251,7 @@ public class ReminderComposerActivity extends AppCompatActivity {
         }
         return true;
     }
-    
+
     private String getReminderDeliveryDays() {
         JSONObject reminderDeliveryDays = new JSONObject();
         try {

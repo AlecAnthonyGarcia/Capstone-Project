@@ -75,7 +75,7 @@ public class RemindersAdapter extends
             viewHolder.contactPhoto.setImageURI(Uri.parse(reminder.getContactPhoto()));
         }
 
-        viewHolder.reminderDeliveryTime.setText(reminder.getDeliveryTime());
+        viewHolder.reminderDeliveryTime.setText(Util.getHumanFormattedTime(reminder.getDeliveryTime()));
 
         String reminderDeliveryDaysStr = "";
         try {

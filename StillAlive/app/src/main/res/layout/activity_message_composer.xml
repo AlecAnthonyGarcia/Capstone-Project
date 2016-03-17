@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ReminderComposerActivity">
+    tools:context=".MessageComposerActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -17,15 +17,15 @@
         <include layout="@layout/toolbar_collapsing" />
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_reminder_composer" />
+    <include layout="@layout/content_message_composer" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/save_reminder_fab"
+        android:id="@+id/send_message_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_done_white_24px" />
+        app:srcCompat="@drawable/ic_send_white_24px" />
 
 </android.support.design.widget.CoordinatorLayout>
