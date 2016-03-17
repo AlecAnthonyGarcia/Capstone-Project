@@ -5,6 +5,8 @@
     <string name="reminder_message_title">Reminder Message</string>
     <string name="reminder_select_time_button">SELECT TIME</string>
     <string name="reminder_delete_button">DELETE</string>
+    <string name="reminder_save_button">Save Reminder</string>
+    <string name="reminder_create_button">New Reminder</string>
     <string name="reminder_delivery_day_sunday">S</string>
     <string name="reminder_delivery_day_monday">M</string>
     <string name="reminder_delivery_day_tuesday">T</string>
@@ -12,6 +14,13 @@
     <string name="reminder_delivery_day_thursday">T</string>
     <string name="reminder_delivery_day_friday">F</string>
     <string name="reminder_delivery_day_saturday">S</string>
+    <string name="reminder_delivery_day_sunday_full">Sunday</string>
+    <string name="reminder_delivery_day_monday_full">Monday</string>
+    <string name="reminder_delivery_day_tuesday_full">Tuesday</string>
+    <string name="reminder_delivery_day_wednesday_full">Wednesday</string>
+    <string name="reminder_delivery_day_thursday_full">Thursday</string>
+    <string name="reminder_delivery_day_friday_full">Friday</string>
+    <string name="reminder_delivery_day_saturday_full">Saturday</string>
     <string name="reminder_notification_title">Are you still alive?</string>
     <string name="reminder_notification_text">wants to know you\'re not dead.</string>
     <string name="reminder_notification_action_still_alive">Yes, I\'m still alive</string>
@@ -21,4 +30,5 @@
     <string name="empty_state_title">Are you still alive?</string>
     <string name="empty_state_message">Create reminders so the people who care about you will know you\'re not dead.</string>
     <string name="message_sent_message">Your Still Alive message has been sent to</string>
+    <string name="message_send_button">Send Message</string>
 </resources>

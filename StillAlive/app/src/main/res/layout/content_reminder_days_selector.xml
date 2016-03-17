@@ -11,6 +11,7 @@
         style="@style/ReminderDeliveryDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/reminder_delivery_day_sunday_full"
         android:text="@string/reminder_delivery_day_sunday" />
 
     <CheckBox
@@ -18,6 +19,7 @@
         style="@style/ReminderDeliveryDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/reminder_delivery_day_monday_full"
         android:text="@string/reminder_delivery_day_monday" />
 
     <CheckBox
@@ -25,6 +27,7 @@
         style="@style/ReminderDeliveryDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/reminder_delivery_day_tuesday_full"
         android:text="@string/reminder_delivery_day_tuesday" />
 
     <CheckBox
@@ -32,6 +35,7 @@
         style="@style/ReminderDeliveryDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/reminder_delivery_day_wednesday_full"
         android:text="@string/reminder_delivery_day_wednesday" />
 
     <CheckBox
@@ -39,6 +43,7 @@
         style="@style/ReminderDeliveryDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/reminder_delivery_day_thursday_full"
         android:text="@string/reminder_delivery_day_thursday" />
 
     <CheckBox
@@ -46,6 +51,7 @@
         style="@style/ReminderDeliveryDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/reminder_delivery_day_friday_full"
         android:text="@string/reminder_delivery_day_friday" />
 
     <CheckBox
@@ -53,6 +59,7 @@
         style="@style/ReminderDeliveryDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/reminder_delivery_day_saturday_full"
         android:text="@string/reminder_delivery_day_saturday" />
 
 </LinearLayout>
