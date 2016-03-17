@@ -12,6 +12,7 @@
         android:layout_width="@dimen/reminder_contact_photo_size"
         android:layout_height="@dimen/reminder_contact_photo_size"
         android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginStart="@dimen/text_margin"
         android:src="@drawable/ic_person_black_24dp" />
 
     <TextView
@@ -19,6 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/contact_photo"
         android:layout_toRightOf="@+id/contact_photo"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -30,7 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/contact_name"
         android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/contact_photo"
         android:layout_toRightOf="@+id/contact_photo"
         android:textSize="17sp"
         android:textStyle="italic"
@@ -40,10 +45,13 @@
         android:id="@+id/reminder_delivery_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginRight="@dimen/text_margin"
+        android:layout_toEndOf="@+id/contact_name"
         android:layout_toRightOf="@+id/contact_name"
-        android:gravity="right"
+        android:gravity="right|end"
         android:textSize="12sp"
         tools:text="SUN MON TUE WED THU FRI SAT" />
 
@@ -51,11 +59,14 @@
         android:id="@+id/reminder_delivery_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/reminder_delivery_days"
+        android:layout_marginEnd="@dimen/text_margin"
         android:layout_marginRight="@dimen/text_margin"
+        android:layout_toEndOf="@+id/contact_name"
         android:layout_toRightOf="@+id/contact_name"
-        android:gravity="right"
+        android:gravity="right|end"
         android:textSize="12sp"
         tools:text="12:00 PM" />
 </RelativeLayout>

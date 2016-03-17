@@ -19,6 +19,7 @@
             android:layout_margin="@dimen/text_margin"
             android:drawableLeft="@drawable/ic_textsms_black_24dp_wrapped"
             android:drawablePadding="32dp"
+            android:drawableStart="@drawable/ic_textsms_black_24dp_wrapped"
             android:text="@string/reminder_message_title"
             android:textSize="25sp" />
 
