@@ -30,12 +30,25 @@
             android:name=".MessageComposerActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
+        <service
+            android:name=".StillAliveWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <receiver android:name="im.stillalive.AlarmReceiver"></receiver>
         <receiver android:name="im.stillalive.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".StillAliveWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info" />
+        </receiver>
+
     </application>
 
 </manifest>

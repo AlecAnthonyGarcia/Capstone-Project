@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:background="?android:attr/selectableItemBackground"
     android:paddingBottom="@dimen/text_margin"
     android:paddingTop="@dimen/text_margin">
 
@@ -13,14 +14,14 @@
         android:layout_height="@dimen/reminder_contact_photo_size"
         android:layout_marginLeft="@dimen/text_margin"
         android:layout_marginStart="@dimen/text_margin"
-        android:src="@drawable/ic_person_black_24dp" />
+        app:srcCompat="@drawable/ic_person_black_24dp" />
 
     <TextView
         android:id="@+id/contact_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginStart="@dimen/text_margin"
         android:layout_toEndOf="@+id/contact_photo"
         android:layout_toRightOf="@+id/contact_photo"
         android:textSize="20sp"
@@ -32,9 +33,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/contact_name"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/text_margin"
+        android:layout_marginStart="@dimen/text_margin"
+        android:layout_marginTop="@dimen/text_margin"
         android:layout_toEndOf="@+id/contact_photo"
         android:layout_toRightOf="@+id/contact_photo"
         android:textSize="17sp"
@@ -69,4 +70,5 @@
         android:gravity="right|end"
         android:textSize="12sp"
         tools:text="12:00 PM" />
+
 </RelativeLayout>

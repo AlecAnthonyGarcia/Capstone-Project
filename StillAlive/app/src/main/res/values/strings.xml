@@ -29,6 +29,7 @@
     <string name="error_invalid_reminder_message">Enter a message to send to</string>
     <string name="empty_state_title">Are you still alive?</string>
     <string name="empty_state_message">Create reminders so the people who care about you will know you\'re not dead.</string>
+    <string name="empty_state_widget_message">No Still Alive reminders</string>
     <string name="message_sent_message">Your Still Alive message has been sent to</string>
     <string name="message_send_button">Send Message</string>
 </resources>
