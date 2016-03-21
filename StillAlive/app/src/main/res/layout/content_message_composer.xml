@@ -30,6 +30,56 @@
             android:layout_margin="@dimen/text_margin"
             android:singleLine="true" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:drawableLeft="@drawable/ic_place_black_24dp_wrapped"
+            android:drawablePadding="32dp"
+            android:drawableStart="@drawable/ic_place_black_24dp_wrapped"
+            android:text="@string/alive_message_location_title"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/alive_message_select_location_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorSecondaryText"
+            android:contentDescription="@string/alive_message_select_location_button"
+            android:paddingEnd="@dimen/text_margin"
+            android:paddingLeft="@dimen/text_margin"
+            android:paddingRight="@dimen/text_margin"
+            android:paddingStart="@dimen/text_margin"
+            android:text="@string/alive_message_select_location_button"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:drawableLeft="@drawable/ic_wb_sunny_black_24dp_wrapped"
+            android:drawablePadding="32dp"
+            android:drawableStart="@drawable/ic_wb_sunny_black_24dp_wrapped"
+            android:text="@string/alive_message_weather_title"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/alive_message_attach_weather_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/text_margin"
+            android:background="@color/colorSecondaryText"
+            android:contentDescription="@string/alive_message_attach_weather_button"
+            android:elevation="2dp"
+            android:paddingEnd="@dimen/text_margin"
+            android:paddingLeft="@dimen/text_margin"
+            android:paddingRight="@dimen/text_margin"
+            android:paddingStart="@dimen/text_margin"
+            android:text="@string/alive_message_attach_weather_button"
+            android:textColor="@android:color/white" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

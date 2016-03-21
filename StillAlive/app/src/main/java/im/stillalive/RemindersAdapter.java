@@ -27,7 +27,7 @@ public class RemindersAdapter extends
         mReminders = reminders;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public Context context;
         public TextView contactName;
         public ImageView contactPhoto;
@@ -44,6 +44,7 @@ public class RemindersAdapter extends
             reminderDeliveryTime = (TextView) itemView.findViewById(R.id.reminder_delivery_time);
             reminderDeliveryDays = (TextView) itemView.findViewById(R.id.reminder_delivery_days);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -52,6 +53,15 @@ public class RemindersAdapter extends
             Intent intent = new Intent(context, ReminderComposerActivity.class);
             intent.putExtra("reminderId", reminder.getId());
             context.startActivity(intent);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            Reminder reminder = mReminders.get(getLayoutPosition());
+            Intent intent = new Intent(context, MessageComposerActivity.class);
+            intent.putExtra("reminderId", reminder.getId());
+            context.startActivity(intent);
+            return false;
         }
     }
 

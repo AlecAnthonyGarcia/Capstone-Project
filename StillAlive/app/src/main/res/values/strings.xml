@@ -3,6 +3,11 @@
     <string name="action_settings">Settings</string>
     <string name="reminder_date_title">Reminder Date</string>
     <string name="reminder_message_title">Reminder Message</string>
+    <string name="alive_message_location_title">Location (optional)</string>
+    <string name="alive_message_weather_title">Weather (optional)</string>
+    <string name="alive_message_select_location_button">SELECT LOCATION</string>
+    <string name="alive_message_attach_weather_button">ATTACH WEATHER</string>
+    <string name="alive_message_weather_suffix">and it\'s currently</string>
     <string name="reminder_select_time_button">SELECT TIME</string>
     <string name="reminder_delete_button">DELETE</string>
     <string name="reminder_save_button">Save Reminder</string>
@@ -30,6 +35,8 @@
     <string name="empty_state_title">Are you still alive?</string>
     <string name="empty_state_message">Create reminders so the people who care about you will know you\'re not dead.</string>
     <string name="empty_state_widget_message">No Still Alive reminders</string>
+    <string name="progress_dialog_weather_title">Fetching Weather</string>
+    <string name="progress_dialog_weather_message">Please wait...</string>
     <string name="message_sent_message">Your Still Alive message has been sent to</string>
     <string name="message_send_button">Send Message</string>
 </resources>
