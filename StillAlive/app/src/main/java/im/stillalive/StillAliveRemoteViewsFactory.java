@@ -74,7 +74,9 @@ public class StillAliveRemoteViewsFactory implements RemoteViewsService.RemoteVi
         }
 
         row.setTextViewText(R.id.contact_name, reminder.getContactName());
-        row.setImageViewUri(R.id.contact_photo, Uri.parse(reminder.getContactPhoto()));
+        if (reminder.getContactPhoto() != null) {
+            row.setImageViewUri(R.id.contact_photo, Uri.parse(reminder.getContactPhoto()));
+        }
         row.setTextViewText(R.id.reminder_text, reminder.getText());
         row.setTextViewText(R.id.reminder_delivery_time, Util.getHumanFormattedTime(reminder.getDeliveryTime()));
         row.setTextViewText(R.id.reminder_delivery_days, reminderDeliveryDaysStr);
