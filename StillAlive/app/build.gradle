@@ -2,9 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'keystore'
+            keyPassword 'password'
+            storeFile file('/Users/alec/AndroidStudioProjects/CapstoneProject/StillAlive/keystore.jks')
+            storePassword 'password'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "im.stillalive"
         minSdkVersion 15
@@ -17,6 +24,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
